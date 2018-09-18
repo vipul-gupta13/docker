@@ -1,0 +1,130 @@
+sudo wget -qO- https://get.docker.io/ | sh
+
+sudo docker images - will list all the images on the host
+sudo docker run -i -t ubuntu:14.04 /bin/bash
+hostname
+id
+echo $PS1
+sudo docker run -i -t <image name/id> /bin/bash
+ctrl+p followed with ctrl+q - to detach from container but it will be running
+sudo docker exec -it <image name/id> /bin/bash - to get attached to already running container in interactive mode.
+sudo docker attach <container name/id>
+sudo docker ps - will list all the info of currently running rocker containers
+sudo docker attach "container id/container name" - attach back to container
+docker diff ::: Docker engine elegantly manages its filesystem and it allows us to inspect a container filesystem by using the "docker diff" command
+docker stop - stops a container
+docker start - starts a container
+the "docker ps" subcommand takes an additional argument -a, which will list all the containers in that Docker host irrespective of its status.
+docker restart - combination of stop and start sequntially
+docker pause - subcommands will essentially freeze the execution of all the processes within that container.
+docker unpause - subcommand will unfreeze the execution of all the processes within that container and resume the execution from the point where it was frozen.
+docker rm "container id" will remove the stopped container from docker ps -a list output
+sudo docker rm `sudo docker ps -aq --no-trunc` --to automatically delete all the containers that are not currently running, as shown in the following command
+docker rmi image_name -- to delete the docker image from the system.
+
+##################################################################################################
+TO MAKE IMAGE FROM A CONTAINER IN WHICH YOU MADE CHANGES (page 35 of the book)
+sudo docker commit "container id" "username"/"image_name"
+
+##################################################################################################
+The docker run command supports an option -d, which will launch a container in a detached mode, that is, it will launch a container as a daemon.
+sudo docker run -d ubuntu /bin/bash -c "while true; do date; sleep 5; done"
+
+##################################################################################################
+BUILDING IMAGES FROM DOCKER FILE
+
+$ cat Dockerfile
+FROM busybox:latest
+CMD echo Hello World!!
+
+In the same directory run the below command
+sudo docker build -t <imagename>:<tag> <path_to_dockerFile>
+if no tag given, then it takes latest by default
+
+The comment line in Dockerfile must begin with the # symbol
+The instruction line of Dockerfile is made up of two components, where the instruction line begins with the instruction itself, which is followed by the arguments for the instruction. Dockerfile is case insensitive
+
+FROM <image>[:<tag>] -- from which base image
+MAINTAINER Dr. Peter <peterindia@gmail.com> -- author information
+COPY <src> ... <dst> 
+	-- <src> contains the source files to be copied from host, if absolute path is not given then it takes the path of dir from where docker build command is invoked.
+	-- ... multiple source dir or files can be specified or wildcards
+	-- <dest> last argument will be considered as destination, if absolute path is not given then default is root /.
+ADD <src> ... <dst> -- similar to COPY but the ADD instruction can handle the TAR files and the remote URLs
+ENV <key> <value> -- to set the env value in target system
+USER <UID>|<UName> -- the USER instruction will modify the default user ID from root to the one specified in this instruction.
+WORKDIR <dirpath> -- The WORKDIR instruction changes the current working directory from / to the path specified by this instruction.
+VOLUME ["<mountpoint>"] or VOLUME <mountpoint> -- creates a directory in the image filesystem, which can later be used for mounting volumes from the Docker host or the other containers
+EXPOSE <port>[/<proto>] [<port>[/<proto>]...] -- opens up a container network port for communicating between the container and the external world
+RUN <command> -- it can run any command. (more info at page 49)  -- RUN apt-get update && apt-get install -y apache2 && apt-get clean
+CMD <command> -- same as RUN, RUN instruction is executed during the build time, whereas the command specified through the CMD instruction is executed when the container is launched from the newly created image.
+ENTRYPOINT <command> - read book page 53
+ONBUILD <instruction> - read book page 54
+
+##################################################################################################
+
+.dockerignore file -- to ignore and remove what should not be sent to daemon while building the image
+
+##################################################################################################
+
+The original image is called the PARENT IMAGE.
+The one that is generated is called the CHILD IMAGE. 
+The BASE IMAGE is a bundle, which comprises an application's common dependencies.
+
+docker history <image name> -- visualize the layers in the Docker image
+
+##################################################################################################
+
+$>ifconfig docker0  -- this will give you the info for starting address range for docker containers
+
+docker inspect <container id/image id> -- allow us to dive deep into the low-level details of the Docker container or image.
+
+Publishing the containers ports and binding them to host port:
+supports the following four formats of arguments:
+•	 <hostPort>:<containerPort>
+•	 <containerPort>
+•	 <ip>:<hostPort>:<containerPort>
+•	 <ip>::<containerPort>
+
+docker run -d -p 8080:80 <imagename> {using the first format}
+
+sudo iptables -t nat -L -n  -- display the ports that are bind with docker
+
+docker port <container id> <container port> -- retrieve the port binding on the Docker host by specifying the container's port number
+
+docker run -p <ip>:<hostPort>:<containerPort> <image id> --> In other words, a specific IP address and port would be configured to offer a particular service.
+
+docker run -d -p <container port> <image id>  --  to let docker auto bind any of its port to docker container port - auto binding of port
+
+docker run -d -p <ip>::<container port> <image id>  -- auto bind host port to specific IP
+
+docker run --network=host <image id>  -- host network should piggy back on the host computers to docker container
+
+EXPOSE in Dockerfile is also used to expose the port but to bind the port with the host use "-P" option in the docker run subcommand to bind it
+
+##################################################################################################
+
+THE DATA VOLUME :is part of the Docker host filesystem, and it simply gets mounted inside the container.
+
+Dockerfile contents:
+	FROM ubuntu:14.04
+	VOLUME /MountPointDemo
+
+sudo docker build -t mount-point-demo .   :: This will build the image with mount point
+sudo docker run --rm -it mount-point-demo	:: This is create one container
+
+When you inspect the container then you'll find location of mount point on host.
+
+sudo docker run –v /MountPointDemo -it ubuntu:14.04	:: Alternate way of adding mount point to old image.
+
+Even after stopping the container the path on host doesn't get deleted. To delete it manually :: sudo docker rm -v <container name/id>
+
+
+SHARING HOST DATA WITH DOCKER::
+
+docker run command options:
+1.) -v <host path>/<container mount path>
+2.) -v <host path>/<container mount path>:<read write mode = ro(read only) or rw(read write)>
+
+sudo docker run -v /tmp/hostdir:/MountPoint -it ubuntu:14.04  :: to mount a directory
+sudo docker run -v /tmp/hostfile.txt:/mountedfile.txt -it ubuntu:14.04  :: to mount a file
