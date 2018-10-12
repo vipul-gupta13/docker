@@ -19,3 +19,16 @@ For example:
 - you can get images for pre installed DB's (eg. Mysql, cassandra, mongoDB, etc.)
 
 I would recommend to explore it. [Click here](https://hub.docker.com/explore)
+
+### DockerFile
+
+Dockerfile is like the script, which will execute steps in the order they are written and the end result will be the image that you want to create.
+
+A basic template of dockerfile will look like :
+
+```
+  get base image.
+  install dependencies.
+  set environment.
+  deploy your application.
+```
