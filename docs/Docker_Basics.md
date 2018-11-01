@@ -24,7 +24,7 @@ To work on this request we need to do the following on our machine:
   - Dockerfile
     - ubuntu OS image.
     - tomcat is needed to be installed.
-    - webapp to be added.
+    - webapp war to be added.
 - Deploy our image in a container.
 - Connect to the tomcat service running on Docker.
 
