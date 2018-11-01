@@ -88,4 +88,4 @@ my_tomcat:latest : custom name of the image: tag name
 .                : path to the Dockerfile
 ```
 
-Next : [Running your first container](https://github.com/vipul-gupta13/docker/blob/master/Running_your_first_container.md)
+Next : [Running your first container](https://github.com/vipul-gupta13/docker/blob/master/docs/Running_your_first_container.md)
