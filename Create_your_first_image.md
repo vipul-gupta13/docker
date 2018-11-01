@@ -72,8 +72,10 @@ This is pretty much self explainatory dockerfile which covers the complete flow 
 
 Once you save the 'Dockerfile', in the same directory, please execute the below command to build the image :
 
-docker build -t <name_of_image>:<tag_of_image> <path_to_Dockerfile>
+sudo docker build -t <name_of_image>:<tag_of_image> <path_to_Dockerfile>
 
 ```
-docker build -t my_tomcat:latest .
+sudo docker build -t my_tomcat:latest .
 ```
+
+Next : [Running your first container](https://github.com/vipul-gupta13/docker/blob/master/Running_your_first_container.md)
