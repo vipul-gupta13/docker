@@ -1,4 +1,4 @@
-# LIY Containers using Docker
+# Learn It Yourself - LIY : Containers using Docker
 
 Container is a buzz word now a days. Everybody is talking about it, everybody wants a containerization expert to handle their microservices. So what are containers, and why it is important to learn it. In this "**LIY - Learn It Yourself**" series, I will be taking you all, through my learning experiences of containerization using Docker, and will try to demystify the air around containerization and docker, also I will help you make your first docker container.
 
