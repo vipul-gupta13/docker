@@ -16,4 +16,4 @@ I would like to request you to please add your comments and suggestions to this 
 
 If you face any other issue, please feel free to drop me a mail on vipulgupta13@gmail.com, I will be more than happy to help you.
 
-[Docker Cheat Sheet](https://github.com/vipul-gupta13/docker/blob/master/Docker-Cheat-Sheet)
+[Docker Cheat Sheet](https://github.com/vipul-gupta13/docker/blob/master/docs/Docker-Cheat-Sheet)
