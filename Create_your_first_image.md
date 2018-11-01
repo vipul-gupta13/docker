@@ -78,4 +78,14 @@ sudo docker build -t <name_of_image>:<tag_of_image> <path_to_Dockerfile>
 sudo docker build -t my_tomcat:latest .
 ```
 
+Explanation of the above commmand :
+
+```
+sudo docker      : will call the docker process
+build            : command to create a new image from dockerfile
+-t               : this options creates the image name with the tag name, (default tag is *'latest'*)
+my_tomcat:latest : custom name of the image: tag name
+.                : path to the Dockerfile
+```
+
 Next : [Running your first container](https://github.com/vipul-gupta13/docker/blob/master/Running_your_first_container.md)
