@@ -1,6 +1,8 @@
 ## What is a container?
 Container can be summed up as ~~mini computers~~ or I should say mini operating systems, that have all the software dependencies, packages & environment settings that required to run your application flawlessly. It is like creating a service for your application, that can be installed and used whenever and wherever you want. And, you can have multiple containers in a single machine and containers are completely isolated from one another as well as from the host machine.
 
+Also, containers unlike VM's use the host machine OS kernel. 
+
 Here you may ask, isn't that everything that a virtual machine provides, then why should I use containers, so to get the answer of this question, I would say "*Go google it*".
 
 ## Why containers should be used?
