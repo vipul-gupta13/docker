@@ -6,6 +6,20 @@ Also, containers unlike VM's use the host machine OS kernel.
 Here you may ask, isn't that everything that a virtual machine provides, then why should I use containers, so to get the answer of this question, I would say "*Go google it*".
 
 ## Why containers should be used?
+
+  - **Agile application creation and deployment**: Increased ease and efficiency of container image creation compared to VM image use.
+  - **Continuous development, integration, and deployment**: Provides for reliable and frequent container image build and deployment with quick and easy rollbacks (due to image immutability).
+  - **Dev and Ops separation of concerns**: Create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.
+  - **Observability** Not only surfaces OS-level information and metrics, but also application health and other signals.
+  - **Environmental consistency across development, testing, and production**: Runs the same on a laptop as it does in the cloud.
+  - **Cloud and OS distribution portability**: Runs on Ubuntu, RHEL, CoreOS, on-prem, Google Kubernetes Engine, and anywhere else.
+  - **Application-centric management**: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
+  - **Loosely coupled, distributed, elastic, liberated micro-services**: Applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a fat monolithic stack running on one big single-purpose machine.
+  - **Resource isolation**: Predictable application performance.
+  - **Resource utilization**: High efficiency and density.
+
+## Containers and microservices.
+
 Instead of writing a very big code for your complete application, it would be better to break that monolithic code into multiple micro services that can work independently. This will help you in following ways :
 
   - Easy to maintain your application.
